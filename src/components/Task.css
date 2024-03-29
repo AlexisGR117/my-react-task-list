@@ -41,7 +41,7 @@ li {
 }
 
 .task {
-    width: 80%;
+    width: 90%;
 }
 
 
@@ -64,4 +64,13 @@ li {
 
 .delete {
     background-image: url("delete.png");
+}
+
+.oculto {
+  display: none;
+}
+
+.input-task {
+    border-radius: 5px;
+    border: 2px solid #e2e6ea;
 }

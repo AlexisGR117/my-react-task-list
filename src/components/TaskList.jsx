@@ -2,7 +2,7 @@ import {Task} from "./Task";
 import './TaskList.css'
 
 export const TaskList = (props) => {
-    const {list, onDelete, onEdit, onChangeState} = props;
+    const {list, onDelete, onEdit} = props;
 
     return (
         <ul>
@@ -11,7 +11,6 @@ export const TaskList = (props) => {
                 key={task.id}
                 task={task}
                 onDelete={onDelete}
-                onChangeState={onChangeState}
                 onEdit={onEdit}/>)}
         </ul>
     );
