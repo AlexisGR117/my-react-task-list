@@ -39,3 +39,11 @@ body {
 #inputs {
     width: 270px;
 }
+
+span.error {
+  display: block;
+  color: red;
+  font-style: italic;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+}

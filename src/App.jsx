@@ -3,6 +3,7 @@ import {TaskList} from "./components/TaskList"
 import './App.css'
 import {useFunctions} from './hooks/useFunctions'
 import {useState, useEffect} from 'react';
+import { useForm } from "react-hook-form"
 
 function App() {
 
@@ -16,9 +17,16 @@ function App() {
         updateTask(taskEdit);
     };
 
-    const handleAddTask = () => {
-        const taskName = document.getElementById("task-name").value;
-        const taskDescription = document.getElementById("task-description").value;
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { isValid, errors },
+    } = useForm({ mode: "all" });
+
+    const handleAddTask = (data) => {
+        const taskName = data.taskName;
+        const taskDescription = data.taskDescription;
         addTask(taskName, taskDescription);
         document.getElementById("task-name").value = "";
         document.getElementById("task-description").value = "";
@@ -27,15 +35,16 @@ function App() {
     return (
         <div>
             <Header />
-            <div id="add" className="container">
+            <form id="add" className="container" onSubmit={handleSubmit(handleAddTask)}>
                 <span id="inputs">
                     <label htmlFor="task-name">Task Name:</label>
-                    <input id="task-name" className="input-text" type="text"></input>
+                    <input {...register("taskName", {required: "Task name is required", minLength: { value: 3, message: "Task name is too short" }})} id="task-name" className="input-text" type="text"></input>
+                                        <span className="error" role="alert">{errors.taskName?.message}</span>
                     <label htmlFor="task-description">Task Description:</label>
-                    <input id="task-description" className="input-text" type="text"></input>
+                    <input {...register("taskDescription")} id="task-description" className="input-text" type="text"></input>
                 </span>
-                <input type="button" className="plus" onClick={handleAddTask}></input>
-            </div>
+                <button disabled={!isValid} className="plus"></button>
+            </form>
             <TaskList
                 list={taskList}
                 onDelete={handleDelete}
